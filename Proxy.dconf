@@ -1,0 +1,22 @@
+[Proxy]
+Lightsail-SG = ss, 1.2.3.4, 80, encrypt-method=chacha20-ietf-poly1305, password=my-password
+
+[Proxy Group]
+Proxy = fallback, Lightsail-SG, SG, TW, JP, HK, US, Others
+Figma = select, DIRECT, Proxy
+Apple = select, Proxy, DIRECT
+Social = select, Proxy, include-other-group=Proxy, hidden=1
+Streaming = select, SG, Lightsail-SG, TW, JP, US, HK, Proxy
+PikPak = select, include-other-group=Streaming, no-alert=0, hidden=1
+PrimeVideo = select, include-other-group=Streaming, no-alert=0, hidden=1
+OpenAI = select, SG, JP, US, no-alert=0, hidden=1
+Game = select, include-other-group=Proxy, hidden=1
+Final = select, Proxy, DIRECT, hidden=1
+SG = url-test, policy-path=my-subscription address, update-interval=0, policy-regex-filter=Singapore, no-alert=1, hidden=1
+TW = url-test, policy-path=my-subscription-url, update-interval=0, policy-regex-filter=Taiwan, no-alert=1, hidden=1
+JP = url-test, policy-path=my-subscription-url, update-interval=0, policy-regex-filter=Japan, no-alert=1, hidden=1
+US = url-test, policy-path=my-subscription-url, update-interval=0, policy-regex-filter=United States, no-alert=1, hidden=1
+HK = url-test, policy-path=my-subscription-url, update-interval=0, policy-regex-filter=Hong Kong, no-alert=1, hidden=1
+Others = select, policy-path=my-subscription-url, update-interval=0, policy-regex-filter=(?!.*(?:Hong Kong|Taiwan|Japan|Singapore|United States|Traffic|Expire))^.*$
+Dashboard = select, policy-path=my-subscription-url, update-interval=0, policy-regex-filter=(Traffic|Expire), no-alert=1
+

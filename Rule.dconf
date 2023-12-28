@@ -1,0 +1,47 @@
+[Rule]
+DOMAIN-SUFFIX,nnyy.in,Streaming
+DOMAIN,sdkapp.uve.weibo.com,DIRECT
+DOMAIN-SUFFIX,openstreetmap.org,Proxy // iFakeLocation 用的地图
+DOMAIN-SUFFIX,marketingcloudapis.com,REJECT // F1 App ads
+DOMAIN-SUFFIX,googleads.g.doubleclick-cn.net,REJECT // F1 App ads
+DOMAIN-SUFFIX,gjfzpt.cn,REJECT // 国家反诈中心请求
+# AI
+RULE-SET,https://raw.githubusercontent.com/natsustan/surge-list/master/ruleset/ai.list,OpenAI
+# Apple
+DOMAIN,apps.apple.com,Proxy
+DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
+DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
+RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,Apple
+# Advertising 广告拦截
+# RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Advertising.list,REJECT-TINYGIF
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Privacy.list,REJECT-TINYGIF
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Hijacking.list,REJECT-TINYGIF
+# Social
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Twitter.list,Social
+# Steaming
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Video/Netflix.list,Streaming
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Video/DisneyPlus.list,Streaming
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Video/YouTube.list,Streaming
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Video/Prime-Video.list,PrimeVideo
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PikPak/PikPak.list,PikPak
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/friDay/friDay.list,TW
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Music/Spotify.list,Streaming
+RULE-SET,https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Surge/TikTok.list,JP
+# Productivity
+RULE-SET,https://raw.githubusercontent.com/natsustan/surge-list/master/ruleset/figma.list,Figma
+# Game
+DOMAIN-SUFFIX,konami.net,Game
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Game/Steam.list,Game
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Game/Nintendo.list,Game
+RULE-SET,https://raw.githubusercontent.com/natsustan/surge-list/master/ruleset/pokemonmasterex.list,Game
+# China 中国直连
+# RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/China.list,DIRECT
+RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT
+# Global 全球加速
+RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy
+# RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Global.list,Proxy
+IP-CIDR,0.0.0.0/32,REJECT,no-resolve // 防止应用循环请求
+# 以下规则将触发本地 DNS 解析
+RULE-SET,LAN,DIRECT
+GEOIP,CN,DIRECT
+FINAL,Final,dns-failed
