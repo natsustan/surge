@@ -6,7 +6,7 @@ DOMAIN-SUFFIX,marketingcloudapis.com,REJECT // F1 App ads
 DOMAIN-SUFFIX,googleads.g.doubleclick-cn.net,REJECT // F1 App ads
 DOMAIN-SUFFIX,gjfzpt.cn,REJECT // 国家反诈中心请求
 # AI
-RULE-SET,https://raw.githubusercontent.com/natsustan/surge-list/master/ruleset/ai.list,OpenAI
+RULE-SET,https://raw.githubusercontent.com/natsustan/surge/master/ruleset/ai.list,OpenAI
 # Apple
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
@@ -28,12 +28,12 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Music/Spotify.list,Streaming
 RULE-SET,https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Surge/TikTok.list,JP
 # Productivity
-RULE-SET,https://raw.githubusercontent.com/natsustan/surge-list/master/ruleset/figma.list,Figma
+RULE-SET,https://raw.githubusercontent.com/natsustan/surge/master/ruleset/figma.list,Figma
 # Game
 DOMAIN-SUFFIX,konami.net,Game
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Game/Steam.list,Game
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Game/Nintendo.list,Game
-RULE-SET,https://raw.githubusercontent.com/natsustan/surge-list/master/ruleset/pokemonmasterex.list,Game
+RULE-SET,https://raw.githubusercontent.com/natsustan/surge/master/ruleset/pokemonmasterex.list,Game
 # China 中国直连
 # RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/China.list,DIRECT
 RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT
