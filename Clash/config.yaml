@@ -1,0 +1,278 @@
+# Clash https://dreamacro.github.io/clash/
+
+# Port of HTTP(S) proxy server on the local end
+# port: 7890
+
+# Port of SOCKS5 proxy server on the local end
+# socks-port: 7891
+
+# HTTP(S) and SOCKS4(A)/SOCKS5 server on the same port
+mixed-port: 7890
+
+# Transparent proxy server port for Linux and macOS (Redirect TCP and TProxy UDP)
+# redir-port: 7892
+
+# Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
+# tproxy-port: 7893
+
+# Allow clients other than 127.0.0.1 to connect to the inbounds
+allow-lan: true
+
+# Clash router working mode
+# rule: rule-based packet routing
+# global: all packets will be forwarded to a single endpoint
+# direct: directly forward the packets to the Internet
+mode: rule
+
+# Clash by default prints logs to STDOUT
+# info / warning / error / debug / silent
+log-level: info
+
+# When set to false, resolver won't translate hostnames to IPv6 addresses
+# ipv6: false
+
+# RESTful web API listening address
+external-controller: :9999
+external-ui: ui
+
+secret: 
+tun: {enable: false}
+experimental: {ignore-resolve-fail: true, interface-name: en0}
+dns: {enable: true, ipv6: true, listen: 0.0.0.0:1053, use-hosts: true, enhanced-mode: redir-host, default-nameserver: [114.114.114.114, 223.5.5.5, https://1.0.0.1/dns-query, https://223.5.5.5/dns-query, 127.0.0.1:53], nameserver: [114.114.114.114, 223.5.5.5], fallback: [1.0.0.1, 8.8.4.4], fallback-filter: {geoip: true}}
+
+store-selected: true
+hosts:
+   'time.android.com': 203.107.6.88
+   'time.facebook.com': 203.107.6.88  
+   'localhost': 127.0.0.1
+proxies:
+  # - {name: VPS, type: ss, server: your_url, port: 443, cipher: chacha20-ietf-poly1305, password: your_password, plugin: obfs, plugin-opts: {mode: http, host: bing.com}}
+
+# 代理节点
+proxy-providers:
+  Taiwan:
+    type: file
+    path: ./Server/WD_Trojan.yaml
+    url: your_url
+    filter: 'Taiwan'
+    health-check:
+        enable: true
+        url: http://cp.cloudflare.com/generate_204
+        interval: 3600
+  Japan:
+    type: file
+    path: ./Server/WD_Trojan.yaml
+    url: your_url
+    filter: 'Japan'
+    health-check:
+        enable: true
+        url: http://cp.cloudflare.com/generate_204
+        interval: 3600
+  Singapore:
+    type: file
+    path: ./Server/WD_Trojan.yaml
+    url: your_url
+    filter: 'Singapore'
+    health-check:
+        enable: true
+        url: http://cp.cloudflare.com/generate_204
+        interval: 3600
+  All:
+    type: file
+    path: ./Server/WD_Trojan.yaml
+    url: your_url
+    # filter: ''
+    health-check:
+        enable: true
+        url: http://cp.cloudflare.com/generate_204
+        interval: 3600
+
+# 代理组策略
+proxy-groups:
+  # 「Proxy」是代理规则策略，它可以指定为某个节点或嵌套一个其他策略组，如：「url-test」（自动测试）、「Fallback」或「load-balance」（负载均衡）的策略组
+  - { name: "Proxies", type: select, proxies: [Lightsail, SG, JP, TW, Others]} 
+  - { name: "Streaming", type: select, proxies: [SG, Lightsail, JP]}
+  - { name: "Social", type: select, proxies: [Proxies, Lightsail, SG, JP, TW]}
+  - { name: "Games", type: select, proxies: [Lightsail, DIRECT, SG, JP, TW, Others]} 
+  - { name: "Microsoft", type: select, proxies: [DIRECT, Lightsail, Proxies]}
+  - { name: "Apple", type: select, proxies: [DIRECT, Lightsail, Proxies]}
+  - { name: "Pikpak", type: select, proxies: [Lightsail, DIRECT, Proxies]}
+  - { name: "PrimeVideo", type: select, proxies: [JP,SG,Lightsail]}
+  - { name: "OpenAI", type: select, proxies: [Lightsail]}
+  - { name: "MATCH", type: select, proxies: [Proxies, DIRECT]}
+  - { name: "Others", type: select, use: ["All"]} 
+  - { name: "SG", type: url-test, use: ["Singapore"]} 
+  - { name: "JP", type: url-test, use: ["Japan"]} 
+  - { name: "TW", type: url-test, use: ["Taiwan"]} 
+
+rule-providers:
+  Apple:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Apple.yaml"
+    path: ./Filter/Apple.yaml
+    interval: 86400
+
+  DisneyPlus:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/DisneyPlus.yaml"
+    path: ./Filter/DisneyPlus.yaml
+    interval: 86400
+      
+  GoogleCN:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/GoogleCN.yaml"
+    path: ./Filter/GoogleCN.yaml
+    interval: 86400
+
+  Microsoft:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Microsoft.yaml"
+    path: ./Filter/Microsoft.yaml
+    interval: 86400
+
+  Netflix:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Netflix.yaml"
+    path: ./Filter/Netflix.yaml
+    interval: 86400
+    
+  # Spotify:
+  #   type: http
+  #   behavior: classical
+  #   url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Spotify.yaml"
+  #   path: ./Filter/Spotify.yaml
+  #   interval: 86400
+    
+  Steam:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Steam.yaml"
+    path: ./Filter/Steam.yaml
+    interval: 86400
+    
+  SteamCN:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/SteamCN.yaml"
+    path: ./Filter/SteamCN.yaml
+    interval: 86400
+    
+  Telegram:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Telegram.yaml"
+    path: ./Filter/Telegram.yaml
+    interval: 86400
+    
+  Nintendo:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nintendo/Nintendo.yaml"
+    path: ./Filter/Nintendo.yaml
+    interval: 86400
+
+  YouTube:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/YouTube.yaml"
+    path: ./Filter/YouTube.yaml
+    interval: 86400
+
+  BanAD:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/BanAD.yaml"
+    path: ./Filter/BanAD.yaml
+    interval: 86400
+
+  BanProgramAD:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/BanProgramAD.yaml"
+    path: ./Filter/BanProgramAD.yaml
+    interval: 86400
+    
+  ChinaCompanyIp:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ChinaCompanyIp.yaml"
+    path: ./Filter/ChinaCompanyIp.yaml
+    interval: 86400
+    
+  ChinaDomain:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ChinaDomain.yaml"
+    path: ./Filter/ChinaDomain.yaml
+    interval: 86400
+           
+  LocalAreaNetwork:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/LocalAreaNetwork.yaml"
+    path: ./Filter/LocalAreaNetwork.yaml
+    interval: 86400
+    
+  OpenAI:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml"
+    path: ./Filter/OpenAI.yaml
+    interval: 86400 
+
+  Twitter:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitter/Twitter.yaml"
+    path: ./Filter/Twitter.yaml
+    interval: 86400 
+
+  Pikpak:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PikPak/PikPak.yaml"
+    path: ./Filter/Pikpak.yaml
+    interval: 86400 
+
+
+  AmazonPrimeVideo:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AmazonPrimeVideo/AmazonPrimeVideo.yaml"
+    path: ./Filter/AmazonPrimeVideo.yaml
+    interval: 86400 
+
+rules:
+  # Adblock
+  - RULE-SET,BanAD,REJECT
+  - RULE-SET,BanProgramAD,REJECT
+  # China
+  - RULE-SET,ChinaCompanyIp,DIRECT
+  - RULE-SET,ChinaDomain,DIRECT
+  - RULE-SET,LocalAreaNetwork,DIRECT
+  - RULE-SET,GoogleCN,DIRECT
+  # Streaming
+  - RULE-SET,Twitter,Social
+  - RULE-SET,Telegram,Social
+  - RULE-SET,AmazonPrimeVideo,PrimeVideo
+  - RULE-SET,DisneyPlus,Streaming
+  - RULE-SET,Netflix,Streaming
+  - RULE-SET,Spotify,Streaming
+  - RULE-SET,YouTube,Streaming
+  - RULE-SET,OpenAI,OpenAI
+  - RULE-SET,Pikpak,Pikpak
+  # 
+  - RULE-SET,Microsoft,Microsoft
+  - RULE-SET,Apple,Apple
+  # Games
+  - RULE-SET,Steam,Games
+  - RULE-SET,SteamCN,DIRECT
+  - RULE-SET,Nintendo,Games
+  # Proxy
+  - GEOIP,CN,DIRECT
+  - MATCH,MATCH
