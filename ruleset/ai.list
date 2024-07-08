@@ -1,7 +1,7 @@
-DOMAIN-SUFFIX,googleapis.com
+//DOMAIN-SUFFIX,googleapis.com
 DOMAIN-SUFFIX,claude.ai
-DOMAIN-SUFFIX,stripe.com
-DOMAIN-SUFFIX,challenges.cloudflare.com
+//DOMAIN-SUFFIX,stripe.com
+//DOMAIN-SUFFIX,challenges.cloudflare.com
 DOMAIN-SUFFIX,ai.com
 DOMAIN-SUFFIX,bing.com
 DOMAIN-KEYWORD,openai // openai
